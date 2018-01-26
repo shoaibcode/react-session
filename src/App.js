@@ -1,9 +1,34 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import axios from "axios"
 
 import Dummy from "./Dummy"
+
+
+/*
+
+//http://jsbin.com/
+
+var names = ["Redux", "React", "Mobx"];
+var names = [
+  {name: "Redux"},
+  { name: "React"}
+];
+
+var newName = names.map(function(name, index){
+    return name + "  HII"
+});
+
+//loopover
+// modify
+//return new array
+
+
+console.log(newName)
+
+*/
+
 
 class App extends Component {
   
@@ -11,46 +36,48 @@ class App extends Component {
     super();
 
     this.state = {
-      name: "Shoaib",
-      students: [],
-      info: {
-        name: "Shoaib"
-      }
+      list: [],
+      isLoading: false
     }
-
-    //Methods
-    this.changeName = this.changeName.bind(this);
   }
 
-  changeName(){
+  componentDidMount(){
+
     this.setState({
-      name: "Redux"
-    });
+      isLoading: true
+    })   
+
+    axios.get("https://jsonplaceholder.typicode.com/posts")
+        .then((response) => {
+          console.log(response.data);
+          /*   do not use set state multiple times
+          this.setState({
+            isLoading: false
+          }) */ 
+
+          this.setState({
+            list: response.data,
+            isLoading: false
+          });
+
+
+        }).catch(() => {})
   }
 
   render() {
+    if(this.state.isLoading){
+      return <div>Loading..................</div>
+    }
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">
-           {this.state.name} <br />
-            <Dummy 
-              changeName={this.changeName}
-              name={this.state.name} />
+      <ul className="App">
+        {this.state.list.map(function(listItem, index){
+          return <li key={listItem.id}>
+            {listItem.title}
+          </li>
+        })}
 
-          </h1>
-
-          <button onClick={this.changeName}>
-            Change Name
-          </button> 
-        </header>
-
-
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      </ul>
     );
   }
 }
