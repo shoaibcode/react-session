@@ -1,0 +1,16 @@
+{
+  "todos": [
+    {
+      "text": "I am Learning React and Redux",
+      "id": 1
+    },
+    {
+      "text": "dasdasdsa",
+      "id": 2
+    },
+    {
+      "text": "Learning Mobx",
+      "id": 3
+    }
+  ]
+}

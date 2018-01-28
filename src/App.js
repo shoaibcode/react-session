@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios"
 
+import AddTodo from "./AddTodo"
 
-import Dummy from "./Dummy"
 
 class App extends Component {
   
@@ -11,46 +10,42 @@ class App extends Component {
     super();
 
     this.state = {
-      name: "Shoaib",
-      students: [],
-      info: {
-        name: "Shoaib"
-      }
+      todos: []
     }
 
-    //Methods
-    this.changeName = this.changeName.bind(this);
+    this.createTodo = this.createTodo.bind(this)
   }
 
-  changeName(){
+  componentDidMount(){
+    axios.get('http://localhost:3000/todos')
+         .then((response) => {
+            this.setState({
+              todos: response.data
+            });
+         }).catch((err) => {
+           console.log("err", err)
+         })
+  }
+
+  createTodo(newTodo){
     this.setState({
-      name: "Redux"
-    });
+      todos: this.state.todos.concat(newTodo)
+    })
   }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">
-           {this.state.name} <br />
-            <Dummy 
-              changeName={this.changeName}
-              name={this.state.name} />
+     <div>
 
-          </h1>
+        <AddTodo createTodo={this.createTodo}  />
 
-          <button onClick={this.changeName}>
-            Change Name
-          </button> 
-        </header>
-
-
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <ul className="App">
+          {this.state.todos.map(function (todo, index) {
+            return <li key={index}>{todo.text}</li>
+          })}
+        </ul>
+     </div>
+    
     );
   }
 }
