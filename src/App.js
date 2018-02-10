@@ -13,7 +13,8 @@ class App extends Component {
       todos: []
     }
 
-    this.createTodo = this.createTodo.bind(this)
+    this.createTodo = this.createTodo.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this)
   }
 
   componentDidMount(){
@@ -33,6 +34,31 @@ class App extends Component {
     })
   }
 
+  deleteTodo(deleteindex){
+    
+    const todo = this.state.todos[deleteindex];
+    
+    axios.delete('http://localhost:3000/todos/' + todo.id)
+        .then(() => {
+          console.log("Success Deleted")
+        })
+        .catch(() => {
+          console.log("Errro Deleted")
+        })
+
+    
+    //Immutablilty
+    const newTodos = this.state.todos.filter((todo, index) => {
+        return deleteindex !== index;
+    });
+
+    
+    this.setState({
+      todos: newTodos
+    });
+
+  }
+
   render() {
     return (
      <div>
@@ -40,8 +66,13 @@ class App extends Component {
         <AddTodo createTodo={this.createTodo}  />
 
         <ul className="App">
-          {this.state.todos.map(function (todo, index) {
-            return <li key={index}>{todo.text}</li>
+          {this.state.todos.map((todo, index) => {
+            return <li key={index}>
+               {todo.text}
+               <button onClick={() => {
+                 this.deleteTodo(index)
+               }}>Delete</button>
+            </li>
           })}
         </ul>
      </div>
