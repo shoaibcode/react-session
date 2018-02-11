@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios"
 
 import AddTodo from "./AddTodo"
-
+import TodoItem from "./TodoItem"
 
 class App extends Component {
   
@@ -13,8 +13,9 @@ class App extends Component {
       todos: []
     }
 
-    this.createTodo = this.createTodo.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this)
+    this.createTodoToState = this.createTodoToState.bind(this);
+    this.deleteTodoFromState = this.deleteTodoFromState.bind(this);
+    this.editTodoToState = this.editTodoToState.bind(this);
   }
 
   componentDidMount(){
@@ -28,13 +29,13 @@ class App extends Component {
          })
   }
 
-  createTodo(newTodo){
+  createTodoToState(newTodo){
     this.setState({
       todos: this.state.todos.concat(newTodo)
     })
   }
 
-  deleteTodo(deleteindex){
+  deleteTodoFromState(deleteindex){
     
     const todo = this.state.todos[deleteindex];
     
@@ -59,20 +60,51 @@ class App extends Component {
 
   }
 
+  editTodoToState(index, newTodo){
+    
+    //Modify State
+    const newTodos = this.state.todos.map((todo, i) => {
+      if(index !== i){
+        return todo
+      }
+
+      return {
+        ...todo,
+        text: newTodo
+      }
+    });
+
+    this.setState({
+      todos: newTodos
+    }, () => {  
+      // update todo
+      //Send Put request to backend
+      const todo = this.state.todos[index];
+      axios.put('http://localhost:3000/todos/' + todo.id, {
+        ...todo
+      })
+      .then(({ data }) => {
+        console.log("Successfully Updated")
+      }).catch((err) => {
+        console.log(err)
+      })
+    });
+  }
+
   render() {
     return (
      <div>
 
-        <AddTodo createTodo={this.createTodo}  />
+        <AddTodo createTodoToState={this.createTodoToState}  />
 
         <ul className="App">
           {this.state.todos.map((todo, index) => {
-            return <li key={index}>
-               {todo.text}
-               <button onClick={() => {
-                 this.deleteTodo(index)
-               }}>Delete</button>
-            </li>
+            return <TodoItem 
+                    deleteTodoFromState={this.deleteTodoFromState} 
+                    editTodoToState={this.editTodoToState}
+                    todo={todo} 
+                    index={index} 
+                    key={index} />
           })}
         </ul>
      </div>

@@ -1,12 +1,12 @@
 {
   "todos": [
     {
-      "text": "Learning Mobx",
-      "id": 3
+      "text": "Learned Redux",
+      "id": 5
     },
     {
-      "text": "Learn mobx",
-      "id": 4
+      "text": "Learned React",
+      "id": 6
     }
   ]
 }

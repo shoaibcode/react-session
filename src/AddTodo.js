@@ -22,7 +22,7 @@ class AddTodo extends React.Component {
         }).then((response) => {
             console.log(response.data);
             
-            this.props.createTodo(response.data)
+            this.props.createTodoToState(response.data)
         });
 
         /*
