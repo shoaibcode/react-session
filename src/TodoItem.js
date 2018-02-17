@@ -35,9 +35,9 @@ class TodoItem extends React.Component {
         if(this.state.isEditing){
             return <li>
                  <input 
-                 ref={(anything) => {
-                    this.todo = anything;
-                 }} 
+                  ref={(anything) => {
+                   this.todo = anything;
+                  }} 
                   defaultValue={todo.text} />
                 <button onClick={this.editTodo}>Save</button>
                 <button onClick={this.toggleEditing}>Cancel</button>

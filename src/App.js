@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from "axios"
 
-import AddTodo from "./AddTodo"
-import TodoItem from "./TodoItem"
+import AddTodo from "./AddTodo";
+import TodoItem from "./TodoItem";
+
+import Test from "./Test"
 
 class App extends Component {
   
@@ -107,6 +109,11 @@ class App extends Component {
                     key={index} />
           })}
         </ul>
+
+        <Test name="Shoaib" clickme={(name) => {
+          console.log(name)
+        }} />  
+
      </div>
     
     );

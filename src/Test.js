@@ -1,31 +1,7 @@
 import React from 'react';
 
-
+/*
 class Test extends React.Component {
-    constructor(props){
-        super(props);
-
-        this.state = {
-           programinglang: "Javascript",
-           myName: props.name
-        }
-
-
-        this.changeLang = this.changeLang.bind(this)
-    }
-
-
-    changeLang(){
-        this.setState({
-            programinglang: "Ruby",
-            myName: "Redux"
-        })
-
-
-        this.props.changeName();
-    }
-
-    //"Props => "State"   {this.state.myName} <br />
   render(){
       return (
           <div style={{ border: "1px solid red"}}>
@@ -33,14 +9,34 @@ class Test extends React.Component {
            "Props" +  {this.props.name} <br />
 
 
-           "State" +   {this.state.programinglang} <br />
-
-             <button onClick={this.changeLang}>
+             <button>
                  Change Lang
              </button>
           </div>
       )
   }    
+}*/
+
+/*
+- Lifecycle
+- no State;
+- no ref
+*/
+
+
+
+function Test(props){
+    return <div style={{ border: "1px solid red" }}>
+
+         <br />
+          
+
+        <button onClick={() => {
+            props.clickme("hello")
+        }}>
+            Change Lang
+        </button>
+    </div>  
 }
 
 export default Test
