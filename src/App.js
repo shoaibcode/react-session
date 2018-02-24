@@ -110,7 +110,7 @@ class App extends Component {
           })}
         </ul>
 
-        <Test name="Shoaib" clickme={(name) => {
+        <Test clickme={(name) => {
           console.log(name)
         }} />  
 

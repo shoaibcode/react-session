@@ -1,4 +1,6 @@
 import React from 'react';
+import t from "prop-types";
+
 
 /*
 class Test extends React.Component {
@@ -28,7 +30,7 @@ class Test extends React.Component {
 function Test(props){
     return <div style={{ border: "1px solid red" }}>
 
-         <br />
+         {props.name}
           
 
         <button onClick={() => {
@@ -38,5 +40,21 @@ function Test(props){
         </button>
     </div>  
 }
+
+Test.propTypes = {
+  name: t.string.isRequired,
+  clickme: t.func
+};
+
+
+Test.defaultProps = {
+  name: 'ReactJS'    
+}
+
+//bool
+//number
+//string,
+//func
+
 
 export default Test
