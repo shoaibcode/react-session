@@ -6,14 +6,17 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
 import Home from "./Home";
-import About from "./About";
+import Posts from "./Posts";
+import NotFound from "./NotFound";
+
 
 ReactDOM.render(
   <BrowserRouter>
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
+        <Route path="/posts" component={Posts} />
+        <Route component={NotFound} />
       </Switch>
     </div>
   </BrowserRouter>,
